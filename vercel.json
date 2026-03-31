@@ -1,18 +1,22 @@
 {
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://ais-pre-g4lzo675tog5yojgc3nsej-114535588664.us-east5.run.app/api/:path*"
-    },
-    {
       "source": "/(.*)",
-      "destination": "https://ais-pre-g4lzo675tog5yojgc3nsej-114535588664.us-east5.run.app/$1"
+      "destination": "/index.html"
     }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        },
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "unsafe-none"
+        },
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"

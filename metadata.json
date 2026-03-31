@@ -1,0 +1,7 @@
+{
+  "name": "DryRot Scan",
+  "description": "A visual AI assessment tool to scan tire sidewalls for signs of dry rot and other potential risks, providing a purchase recommendation. Also includes a DOT code reader and scan history.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

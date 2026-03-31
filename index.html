@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DryRot Scan - AI Tire Safety Scanner</title>
+    
+    <!-- Google Search Verification -->
+    <meta name="google-site-verification" content="google42cc90eb2d48b3f6" />
+    
+    <!-- SEO: Helps Google find your site -->
+    <meta name="description" content="Instantly scan your tires for dry rot and safety risks using AI. Check tire age via DOT codes and get a full vehicle safety report." />
+    <meta name="keywords" content="dry rot, tire scan, tire safety, AI mechanic, tire age checker, DOT code reader, dryrot scan" />
+    
+    <!-- Social Media: Makes links look good on Facebook/Twitter/Text -->
+    <meta property="og:title" content="DryRot Scan - Is your tire safe?" />
+    <meta property="og:description" content="Use AI to detect dry rot cracks and check tire age instantly." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.dryrotscan.com" />
+    <meta property="og:image" content="/icon-512x512.png" />
+
+    <!-- Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google.com https://*.googleapis.com https://*.firebaseapp.com https://*.gstatic.com https://js.stripe.com;
+      style-src 'self' 'unsafe-inline' https://*.google.com https://*.googleapis.com;
+      font-src 'self' https://*.gstatic.com;
+      img-src 'self' data: blob: https://*.google.com https://*.googleusercontent.com https://*.gstatic.com https://cdn-icons-png.flaticon.com https://picsum.photos https://fastly.picsum.photos;
+      media-src 'self' blob:;
+      frame-src 'self' https://*.google.com https://*.firebaseapp.com https://*.firebase.com https://*.stripe.com;
+      connect-src 'self' https://*.google.com https://*.googleapis.com https://*.firebaseapp.com https://*.firebase.com https://*.stripe.com wss://localhost:24678 ws://localhost:24678;
+    ">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d1b2a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DryRot Scan" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
+  </head>
+  <body class="bg-base-100 text-base-content antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker registered:', reg.scope))
+            .catch(err => console.warn('Service Worker registration failed:', err));
+        });
+      }
+    </script>
+  </body>
+</html>

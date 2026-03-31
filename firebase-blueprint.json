@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "isEmailVerified": { "type": "boolean" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Scan": {
+      "title": "Scan",
+      "description": "Tire scan session data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "vehicleId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "tires": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "position": { "type": "string" },
+              "condition": { "type": "string" },
+              "depth": { "type": "number" },
+              "images": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      },
+      "required": ["uid", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/scans/{scanId}": {
+      "schema": "Scan",
+      "description": "Tire scan records"
+    }
+  }
+}

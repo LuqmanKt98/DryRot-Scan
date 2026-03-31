@@ -137,14 +137,15 @@ const ScanScreen: React.FC<ScanScreenProps> = ({ onScanComplete, onBack }) => {
         analysis: resultJson.analysis || [{ title: "Analysis Failed", details: "Could not analyze image." }]
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("AI Analysis Failed:", error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
       // Fallback if AI fails
       onScanComplete({
         image: images[0],
         status: "Warning",
         confidence: 0,
-        analysis: [{ title: "Connection Error", details: "Could not reach AI server. Please check your internet." }]
+        analysis: [{ title: "Analysis Failed", details: `Error: ${errorMessage}. Please try again.` }]
       });
     } finally {
       setIsAnalyzing(false);

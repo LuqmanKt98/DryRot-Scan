@@ -41,7 +41,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ scanHistory, onNewScan, onLogou
   };
 
   const getTranslatedStatus = (status: ScanStatus) => {
-    const key = `scan.${status.toLowerCase().replace("'", "")}`;
+    const key = `scan.${status.toLowerCase().replace(/['\s]/g, "")}`;
     return t(key);
   };
 

@@ -42,7 +42,7 @@ const FinalReviewScreen: React.FC<FinalReviewScreenProps> = ({ record, onAccept,
   }
   
   const getTranslatedStatus = (status: ScanStatus) => {
-    const key = `scan.${status.toLowerCase().replace("'", "")}`;
+    const key = `scan.${status.toLowerCase().replace(/['\s]/g, "")}`;
     return t(key);
   };
 
@@ -111,7 +111,7 @@ const TireReportCard: React.FC<{position: TirePosition, scans: ScanResult[]}> = 
     const style = statusStyles[overallTireStatus];
 
     const getTranslatedStatus = (status: ScanStatus) => {
-      const key = `scan.${status.toLowerCase().replace("'", "")}`;
+      const key = `scan.${status.toLowerCase().replace(/['\s]/g, "")}`;
       return t(key);
     };
 

@@ -135,13 +135,16 @@ const AppContent: React.FC = () => {
 
   const [toast, setToast] = useState<ToastMessage | null>(null);
 
-  // Bypassed Firebase Auth Listener
+  // Firebase Auth Listener
   useEffect(() => {
-    setIsAuthenticated(true);
-    setIsAuthReady(true);
-    if (['landing', 'login', 'signup'].includes(screen)) {
-      handleLogin();
-    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+      setIsAuthReady(true);
+      if (user && ['landing', 'login', 'signup'].includes(screen)) {
+        handleLogin();
+      }
+    });
+    return () => unsubscribe();
   }, [screen]);
   
   // Persist history when it changes
@@ -197,7 +200,7 @@ const AppContent: React.FC = () => {
   };
 
   const startNewScanSession = () => {
-    handlePaymentSuccess();
+    navigate('payment');
   };
 
   const handlePaymentSuccess = () => {

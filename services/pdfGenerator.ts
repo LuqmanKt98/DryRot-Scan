@@ -22,7 +22,7 @@ export const generatePdfReport = (record: ScanRecord, t: (key: string, replaceme
   const doc = new jsPDF() as jsPDFWithAutoTable;
 
   const getTranslatedStatus = (status: ScanStatus) => {
-    const key = `scan.${status.toLowerCase().replace("'", "")}`;
+    const key = `scan.${status.toLowerCase().replace(/['\s]/g, "")}`;
     return t(key);
   };
   

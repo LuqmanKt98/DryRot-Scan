@@ -97,11 +97,41 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
+    console.log(`Production mode: Serving static files from ${distPath}`);
+    
+    // Check if dist folder exists
+    import('fs').then((fs) => {
+      if (fs.existsSync(distPath)) {
+        console.log("Found dist folder.");
+        if (fs.existsSync(path.join(distPath, 'index.html'))) {
+          console.log("Found index.html in dist folder.");
+        } else {
+          console.error("CRITICAL: index.html NOT found in dist folder!");
+        }
+      } else {
+        console.error("CRITICAL: dist directory NOT found!");
+      }
+    });
+
     app.use(express.static(distPath));
-    app.get(/(.*)/, (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+    
+    // Catch-all route for SPA in Express 5
+    app.get('*', (req, res, next) => {
+      // Don't intercept API calls
+      if (req.path.startsWith('/api')) {
+        return next();
+      }
+      
+      const indexPath = path.join(distPath, 'index.html');
+      res.sendFile(indexPath, (err) => {
+        if (err) {
+          console.error(`Error sending index.html: ${err.message}`);
+          res.status(500).send("Server Error - Frontend asset missing");
+        }
+      });
     });
   }
+
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on http://localhost:${PORT}`);

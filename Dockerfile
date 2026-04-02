@@ -4,22 +4,25 @@ FROM node:20-alpine
 # Set the working directory
 WORKDIR /usr/src/app
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
+# Copy application manifests
 COPY package*.json ./
 
-# Install dependencies (includes devDependencies required for the build phase)
-RUN npm ci
+# Install all dependencies (including devDependencies needed for build)
+RUN npm install
 
-# Copy the local code (including the pre-built 'dist' folder) to the container's workspace.
+# Copy the source code
 COPY . .
+
+# Run the build script to generate the 'dist' directory
+RUN npm run build
 
 # Set the environment variables for production
 ENV NODE_ENV=production
 
-# The port Cloud Run typically injects, ensuring our app accesses it
+# The port Cloud Run typically injects
 ENV PORT=8080
 EXPOSE 8080
 
 # Start the Node.js production server
 CMD ["npm", "start"]
+
